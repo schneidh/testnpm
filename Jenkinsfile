@@ -18,12 +18,14 @@ pipeline {
             sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/schneidh/testnpm master:master')
             sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/schneidh/testnpm --tags master:master')
           }
-          def version = readFile('version')
+          script {
+            env.version = readFile 'version'
+          }
         }
       }
       stage("docker") {
         steps {
-          sh "echo 'The version is ${version}'"
+          sh "echo 'The version is ${env.version}'"
         }
       }
     }
