@@ -5,6 +5,7 @@ pipeline {
           args '-u root'
         }
     }
+    def version
     stages {
        stage("install and release") {
         steps {
@@ -13,11 +14,16 @@ pipeline {
           checkout scm
           sh 'npm install'
           sh 'npm version patch'
+          sh './npm-extract-version.sh > version'
+          version = readFile 'version'
           withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'd61d369a-1dab-4ad0-82f6-0f8f2c6d0b57', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
             sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/schneidh/testnpm master:master')
             sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/schneidh/testnpm --tags master:master')
           }
         }
+      }
+      stage("docker") {
+        sh "echo 'The version is ${version}'"
       }
     }
 }
