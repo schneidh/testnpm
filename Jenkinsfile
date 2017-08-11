@@ -14,6 +14,9 @@ pipeline {
           sh 'git config --global user.email "pipeline@example.com"'
           sh 'git config --global user.name "Pipeline"'
           checkout scm
+          dir('otherRepo') {
+            git url: 'http://git.repo.blah/RepoA.git' // clones repo A to subdir
+          }
           sh 'npm install'
           sh 'npm version patch'
           sh './npm-extract-version.sh > version'
@@ -29,6 +32,13 @@ pipeline {
       stage("docker") {
         steps {
           sh "echo 'The version is ${env.version}'"
+          dir('repoB') {
+            git url: 'https://github.com/schneidh/struts2scopeplugin'
+          }
+          dir('repoC') {
+            git url: 'https://github.com/fuhrysteve/php-docker-apache-example'
+            def app = docker.build "tempdocker"
+          }
         }
       }
     }
