@@ -3,9 +3,11 @@ pipeline {
         docker 'node:7-onbuild'
     }
     stages {
-      stage ("a") {
-        withDockerContainer(args: "-u root", image: "${JOB_NAME}") {
-          sh "npm install"
+      stage("a") {
+        steps {
+          withDockerContainer(args: "-u root", image: "${JOB_NAME}") {
+            sh "npm install"
+          }
         }
       }
     }
