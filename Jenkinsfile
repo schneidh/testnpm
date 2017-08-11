@@ -34,7 +34,7 @@ pipeline {
           }
           dir('repoC') {
             git url: 'https://github.com/fuhrysteve/php-docker-apache-example'
-            withDockerServer([:]) {
+            withDockerServer(['uri':'']) {
               def app = docker.build "tempdocker"
             }
           }
