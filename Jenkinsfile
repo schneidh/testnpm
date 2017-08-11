@@ -1,12 +1,11 @@
 pipeline {
     agent {
         docker 'node:7-onbuild'
+        args '-u root'
     }
     stages {
       stage("a") {
-        docker.image('node:7').withRun('-u root') {
-          sh 'npm install'
-        }
+        sh 'npm install'
       }
     }
 }
