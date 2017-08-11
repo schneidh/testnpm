@@ -4,9 +4,9 @@ pipeline {
     }
     stages {
         stage("check node") {
-            steps {
-                sh 'npm install'
-            }
+          withDockerContainer(args: "-u root", image: "${JOB_NAME}") {
+            sh "npm install"
+          }
         }
     }
 }
