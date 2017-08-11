@@ -6,15 +6,18 @@ pipeline {
         }
     }
     stages {
-      stage("a") {
+       stage('Checkout'){
+          checkout scm
+       }
+       stage("install and release") {
         steps {
           sh 'git config --global user.email "pipeline@example.com"'
           sh 'git config --global user.name "Pipeline"'
           sh 'npm install'
           sh 'npm version patch'
           withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'd61d369a-1dab-4ad0-82f6-0f8f2c6d0b57', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/schneidh/testnpm')
-            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/schneidh/testnpm --tags')
+            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/schneidh/testnpm master:master')
+            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/schneidh/testnpm --tags master:master')
           }
         }
       }
