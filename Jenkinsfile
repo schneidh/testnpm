@@ -40,13 +40,8 @@ pipeline {
         }
       }
       stage("docker") {
-        agent {
-          dockerfile {
-            dir 'repoC'
-          }
-        }
         steps {
-          sh "echo 'The version is ${env.version}'"
+          sh "cd repoC && docker build . -t test1"
           dir('repoB') {
             git url: 'https://github.com/schneidh/struts2scopeplugin'
           }
