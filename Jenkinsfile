@@ -1,4 +1,5 @@
 pipeline {
+    agent 'master'
     environment {
       HOME = '.'
     }
