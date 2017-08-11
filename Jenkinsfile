@@ -5,8 +5,8 @@ pipeline {
     stages {
       stage("a") {
         steps {
-          withDockerContainer(args: "-u root", image: "node:7") {
-            sh "npm install"
+          docker.image('node:7').withRun('-u root') {
+            sh 'npm install'
           }
         }
       }
