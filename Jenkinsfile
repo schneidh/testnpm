@@ -9,7 +9,20 @@ pipeline {
       HOME = '.'
     }
     stages {
+       stage("setup") {
+          steps {
+            dir('repoC') {
+              git url: 'https://github.com/fuhrysteve/php-docker-apache-example'
+            }
+          }
+       }
        stage("install and release") {
+         agent {
+           docker {
+             image 'node'
+             args ''
+           }
+         }
         steps {
           sh 'git config --global user.email "pipeline@example.com"'
           sh 'git config --global user.name "Pipeline"'
@@ -23,9 +36,6 @@ pipeline {
           }
           script {
             env.version = readFile 'version'
-          }
-          dir('repoC') {
-            git url: 'https://github.com/fuhrysteve/php-docker-apache-example'
           }
         }
       }
