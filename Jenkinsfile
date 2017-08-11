@@ -2,8 +2,11 @@ pipeline {
     agent {
         docker {
           image 'node:7-onbuild'
-          args '-u root'
+          args ''
         }
+    }
+    environment {
+      HOME=.
     }
     stages {
        stage("install and release") {
