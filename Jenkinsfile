@@ -32,7 +32,7 @@ pipeline {
       stage("docker") {
         agent {
           dockerfile {
-            dir: 'repoC'
+            dir 'repoC'
           }
         }
         steps {
