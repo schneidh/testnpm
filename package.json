@@ -1,0 +1,22 @@
+{
+  "name": "npmtest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schneidh/testnpm.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/schneidh/testnpm/issues"
+  },
+  "homepage": "https://github.com/schneidh/testnpm#readme",
+  "dependencies": {
+    "bower": "1.8.0"
+  }
+}
