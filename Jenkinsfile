@@ -5,7 +5,6 @@ pipeline {
           args '-u root'
         }
     }
-    def version
     stages {
        stage("install and release") {
         steps {
@@ -19,8 +18,8 @@ pipeline {
             sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/schneidh/testnpm master:master')
             sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/schneidh/testnpm --tags master:master')
           }
+          def version = readFile('version')
         }
-        version = readFile 'version'
       }
       stage("docker") {
         steps {
