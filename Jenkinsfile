@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker 'node'
+        docker 'node:7-onbuild'
     }
     stages {
         stage("check node") {
