@@ -24,19 +24,24 @@ pipeline {
           script {
             env.version = readFile 'version'
           }
-        }
-      }
-      stage("docker") {
-        steps {
-          sh "echo 'The version is ${env.version}'"
-          dir('repoB') {
-            git url: 'https://github.com/schneidh/struts2scopeplugin'
-          }
           dir('repoC') {
             git url: 'https://github.com/fuhrysteve/php-docker-apache-example'
             withDockerRegistry('') {
               def app = docker.build "tempdocker"
             }
+          }
+        }
+      }
+      stage("docker") {
+        agent {
+          dockerfile {
+            dir: 'repoC'
+          }
+        }
+        steps {
+          sh "echo 'The version is ${env.version}'"
+          dir('repoB') {
+            git url: 'https://github.com/schneidh/struts2scopeplugin'
           }
         }
       }
