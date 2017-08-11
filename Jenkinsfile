@@ -36,7 +36,7 @@ pipeline {
       }
       stage("docker") {
         steps {
-          sh "cd repoC && docker build . -t test1"
+          sh "cd repoC && docker build . -t test1 --build-arg npm_package_version=${version}"
           dir('repoB') {
             git url: 'https://github.com/schneidh/struts2scopeplugin'
           }
