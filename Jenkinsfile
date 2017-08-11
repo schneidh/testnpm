@@ -11,6 +11,7 @@ pipeline {
     stages {
        stage("setup") {
           steps {
+            checkout scm
             dir('repoC') {
               git url: 'https://github.com/fuhrysteve/php-docker-apache-example'
             }
@@ -26,7 +27,6 @@ pipeline {
         steps {
           sh 'git config --global user.email "pipeline@example.com"'
           sh 'git config --global user.name "Pipeline"'
-          checkout scm
           sh 'npm install'
           sh 'npm version patch'
           sh './npm-extract-version.sh > version'
