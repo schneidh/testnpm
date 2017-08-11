@@ -23,7 +23,9 @@ pipeline {
         }
       }
       stage("docker") {
-        sh "echo 'The version is ${version}'"
+        steps {
+          sh "echo 'The version is ${version}'"
+        }
       }
     }
 }
