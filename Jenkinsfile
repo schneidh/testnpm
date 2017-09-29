@@ -1,9 +1,6 @@
 pipeline {
     agent { node { label 'master' } }
-    environment {
-      HOME = '.'
-      NODEJS = '/var/jenkins_home/tools/jenkins.plugins.nodejs.tools.NodeJSInstallation/NODE8.2.0/bin/'
-    }
+    tools {nodejs "NODE8.2.0"}
     stages {
        stage("setup") {
           steps {
@@ -11,8 +8,6 @@ pipeline {
             dir('repoC') {
               git url: 'https://github.com/fuhrysteve/php-docker-apache-example'
             }
-            def node = tool name: 'NODE8_2_0', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-            env.PATH = "${node}/bin:${env.PATH}"
             sh "node -v"
           }
        }
