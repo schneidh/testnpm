@@ -24,7 +24,7 @@ pipeline {
           sh 'git config --global user.name "Pipeline"'
           sh 'npm version patch'
           sh './npm-extract-version.sh > version'
-          withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '93bdcceb-590a-404f-967e-1e734cdacaca', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
+          withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'github-schneidh', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
             sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/schneidh/testnpm master:master')
             sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/schneidh/testnpm --tags master:master')
           }
