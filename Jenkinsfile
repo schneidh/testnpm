@@ -2,6 +2,7 @@ pipeline {
     agent { node { label 'master' } }
     environment {
       HOME = '.'
+      NODEJS = '/var/jenkins_home/tools/jenkins.plugins.nodejs.tools.NodeJSInstallation/NODE8.2.0/bin/'
     }
     stages {
        stage("setup") {
@@ -15,7 +16,7 @@ pipeline {
        stage("build") {
          steps {
            sh 'rm -rf node_modules'
-           sh 'npm install'
+           sh '$NODEJS/npm install'
          }
        }
        stage("release") {
