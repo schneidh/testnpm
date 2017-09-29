@@ -13,8 +13,10 @@ pipeline {
           }
        }
        stage("build") {
-         sh 'rm -rf node_modules'
-         sh 'npm install'
+         steps {
+           sh 'rm -rf node_modules'
+           sh 'npm install'
+         }
        }
        stage("release") {
         steps {
