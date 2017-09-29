@@ -4,11 +4,8 @@ pipeline {
     stages {
        stage("setup") {
           steps {
-            checkout scm
-            dir('repoC') {
-              git url: 'https://github.com/fuhrysteve/php-docker-apache-example'
-            }
             sh "node -v"
+            sh "npm -v"
           }
        }
        stage("build") {
