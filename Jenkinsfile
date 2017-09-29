@@ -12,17 +12,11 @@ pipeline {
             }
           }
        }
-       stage("") {
+       stage("build") {
          sh 'rm -rf node_modules'
          sh 'npm install'
        }
-       stage("install and release") {
-         agent {
-           docker {
-             image 'node'
-             args ''
-           }
-         }
+       stage("release") {
         steps {
           sh 'git config --global user.email "pipeline@example.com"'
           sh 'git config --global user.name "Pipeline"'
@@ -34,14 +28,6 @@ pipeline {
           }
           script {
             env.version = readFile 'version'
-          }
-        }
-      }
-      stage("docker") {
-        steps {
-          sh "cd repoC && docker build . -t test1 --build-arg npm_package_version=${version}"
-          dir('repoB') {
-            git url: 'https://github.com/schneidh/struts2scopeplugin'
           }
         }
       }
