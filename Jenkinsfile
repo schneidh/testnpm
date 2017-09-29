@@ -1,5 +1,5 @@
 pipeline {
-    agent master
+    agent { node { label 'master' } }
     environment {
       HOME = '.'
     }
