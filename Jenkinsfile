@@ -1,6 +1,6 @@
 pipeline {
     agent { node { label 'master' } }
-    tools {nodejs "NODE8.2.0"}
+    tools {nodejs "NODE8_2_0"}
     stages {
        stage("setup") {
           steps {
