@@ -15,8 +15,9 @@ pipeline {
        }
        stage("build") {
          steps {
+           sh 'PATH=$PATH:$NODEJS'
            sh 'rm -rf node_modules'
-           sh '$NODEJS/npm install'
+           sh 'npm install'
          }
        }
        stage("release") {
