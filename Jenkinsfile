@@ -11,6 +11,9 @@ pipeline {
             dir('repoC') {
               git url: 'https://github.com/fuhrysteve/php-docker-apache-example'
             }
+            def node = tool name: 'NODE8_2_0', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+            env.PATH = "${node}/bin:${env.PATH}"
+            sh "node -v"
           }
        }
        stage("build") {
