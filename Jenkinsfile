@@ -5,7 +5,7 @@ pipeline {
        stage("setup") {
           steps {
             sh "node -v"
-            sh "npm -v"
+            sh "npm -vaaba"
           }
        }
        stage("build") {
