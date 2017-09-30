@@ -5,7 +5,7 @@ pipeline {
        stage("setup") {
           steps {
             sh "node -v"
-            sh "npm -v"
+            sh "npm -vaaba"
           }
        }
        stage("build") {
@@ -23,8 +23,8 @@ pipeline {
       }
       changed {
          script {
-            if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
-            echo 'back to normal $BUILD_NUMBER'
+            if (currentBuild?.result == 'SUCCESS') {
+              echo "back to normal $BUILD_NUMBER"
             }
         }
       }
