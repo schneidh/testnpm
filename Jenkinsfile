@@ -18,13 +18,12 @@ pipeline {
     }
     post {
       failure {
-        sh 'env'
-        echo("FAILED Build Number $BUILD_NUMBER")
+        echo("FAILED Build Number $BUILD_NUMBER ${currentBuild?.result}")
       }
       changed {
          script {
             if (currentBuild?.result == 'SUCCESS') {
-              echo "back to normal $BUILD_NUMBER"
+              echo "back to normal $BUILD_NUMBER ${currentBuild?.result}"
             }
         }
       }
