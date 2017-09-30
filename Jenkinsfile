@@ -15,19 +15,16 @@ pipeline {
            sh 'npm install'
          }
        }
-       stage("release") {
-        steps {
-          sh 'git config --global user.email "pipeline@example.com"'
-          sh 'git config --global user.name "Pipeline"'
-          sh 'npm version patch'
-          sh './npm-extract-version.sh > version'
-          withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'github-schneidh', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/schneidh/testnpm master:master')
-            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/schneidh/testnpm --tags master:master')
-          }
-          script {
-            env.version = readFile 'version'
-          }
+    }
+    post {
+      failure {
+        echo("FAILED $BUILD_NUMBER")
+      }
+      changed {
+         script {
+            if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
+            echo 'back to normal $BUILD_NUMBER'
+            }
         }
       }
     }
