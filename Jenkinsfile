@@ -18,7 +18,8 @@ pipeline {
     }
     post {
       failure {
-        echo("FAILED $BUILD_NUMBER")
+        sh 'env'
+        echo("FAILED Build Number $BUILD_NUMBER")
       }
       changed {
          script {
