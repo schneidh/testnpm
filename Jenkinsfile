@@ -20,6 +20,10 @@ pipeline {
       failure {
         echo("FAILED Build Number $BUILD_NUMBER ${currentBuild?.result}")
       }
+      unstable {
+      }
+      aborted {
+      }
       changed {
          script {
             if (currentBuild?.result == 'SUCCESS') {
