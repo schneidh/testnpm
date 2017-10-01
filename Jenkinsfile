@@ -24,7 +24,7 @@ pipeline {
             sh "echo 'protocol=https\nhost=github.com\nusername=${GIT_USERNAME}\npassword=${GIT_PASSWORD}\n\n' | git credential approve"
             sh('git checkout -B develop origin/develop')
             sh('git merge master')
-            sh('git push origin develop:develop')
+            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/schneidh/testnpm develop:develop')
           }
          }
        }
