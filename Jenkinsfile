@@ -17,13 +17,12 @@ pipeline {
        }
        stage("merge to develop") {
          steps {
-           withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'github-schneidh', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-            sh 'git config --global user.email "jenkins@doradosystems.com"'
-            sh 'git config --global user.name "Jenkins Release"'
-            sh 'git config --global --unset credential.helper'
-            sh('git checkout -B develop origin/develop')
-            sh('git merge master')
-            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/schneidh/testnpm develop:develop')
+           sshagent (credentials: ['schneidh-ssh']) {
+             sh 'git config --global user.email "jenkins@doradosystems.com"'
+             sh 'git config --global user.name "Jenkins Release"'
+             sh('git checkout -B develop origin/develop')
+             sh('git merge master')
+             sh('git push origin develop:develop')
           }
          }
        }
