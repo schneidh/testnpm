@@ -18,9 +18,10 @@ pipeline {
        stage("merge to develop") {
          steps {
            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'github-schneidh', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-            sh "echo 'protocol=https\nhost=github.com\nusername=${GIT_USERNAME}\npassword=${GIT_PASSWORD}\n\n' | git credential approve"
             sh 'git config --global user.email "jenkins@doradosystems.com"'
             sh 'git config --global user.name "Jenkins Release"'
+            sh 'git config credential.helper "cache"'
+            sh "echo 'protocol=https\nhost=github.com\nusername=${GIT_USERNAME}\npassword=${GIT_PASSWORD}\n\n' | git credential approve"
             sh('git checkout -B develop origin/develop')
             sh('git merge master')
             sh('git push origin develop:develop')
