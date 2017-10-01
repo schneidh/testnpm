@@ -21,8 +21,10 @@ pipeline {
         echo("FAILED Build Number $BUILD_NUMBER ${currentBuild?.result}")
       }
       unstable {
+        echo("UNSTABLE Build Number $BUILD_NUMBER ${currentBuild?.result}")
       }
       aborted {
+        echo("ABORTED Build Number $BUILD_NUMBER ${currentBuild?.result}")
       }
       changed {
          script {
