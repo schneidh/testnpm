@@ -17,7 +17,7 @@ pipeline {
        }
        stage("merge to develop") {
          steps {
-           sshagent (credentials: ['schneidh-ssh']) {
+           sshagent (credentials: ['testnpm-ssh']) {
              sh 'git config --global user.email "jenkins@doradosystems.com"'
              sh 'git config --global user.name "Jenkins Release"'
              sh('git checkout -B develop origin/develop')
