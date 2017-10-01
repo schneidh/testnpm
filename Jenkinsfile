@@ -22,7 +22,7 @@ pipeline {
              sh 'git config --global user.name "Jenkins Release"'
              sh('git checkout -B develop origin/develop')
              sh('git merge master')
-             sh('git push git@github.com:schneidh/testnpm.git develop:develop')
+             sh('git push origin develop:develop')
           }
          }
        }
