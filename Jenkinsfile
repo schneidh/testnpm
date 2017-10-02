@@ -15,17 +15,27 @@ pipeline {
            sh 'npm install'
          }
        }
-       stage("merge to develop") {
-         steps {
-           sshagent (credentials: ['testnpm-ssh']) {
-             sh 'git config --global user.email "jenkins@doradosystems.com"'
-             sh 'git config --global user.name "Jenkins Release"'
-             sh('git checkout -B develop origin/develop')
-             sh('git merge master')
-             sh('git push origin develop:develop')
+       stage("release") {
+        steps {
+          sshagent (credentials: ['testnpm-ssh']) {
+            sh 'git config --global user.email "jenkins@doradosystems.com"'
+            sh 'git config --global user.name "Jenkins Release"'
+            sh 'npm version patch'
+            sh('git push origin --tags master:master')
           }
-         }
-       }
+        }
+      }
+      stage("merge to develop") {
+        steps {
+          sshagent (credentials: ['testnpm-ssh']) {
+            sh 'git config --global user.email "jenkins@doradosystems.com"'
+            sh 'git config --global user.name "Jenkins Release"'
+            sh('git checkout -B develop origin/develop')
+            sh('git merge master')
+            sh('git push origin develop:develop')
+          }
+        }
+      }
     }
     post {
       failure {
