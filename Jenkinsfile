@@ -20,7 +20,7 @@ pipeline {
           sshagent (credentials: ['testnpm-ssh']) {
             sh 'git config --global user.email "jenkins@doradosystems.com"'
             sh 'git config --global user.name "Jenkins Release"'
-            sh 'npm version patch'
+            sh 'npm version patch -m "[npm-version] %s"'
             sh('git push origin --tags master:master')
           }
         }
