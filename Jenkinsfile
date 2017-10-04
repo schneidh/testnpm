@@ -36,6 +36,10 @@ pipeline {
           }
         }
       }
+      stage("cleanup") {
+        steps {
+          cleanWs()
+        }
     }
     post {
       failure {
