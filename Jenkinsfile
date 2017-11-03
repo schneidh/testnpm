@@ -15,7 +15,7 @@ pipeline {
            sh 'npm install'
          }
        }
-       stage("release") {
+      /* stage("release") {
         steps {
           sshagent (credentials: ['testnpm-ssh']) {
             sh 'git config --global user.email "jenkins@doradosystems.com"'
@@ -35,7 +35,7 @@ pipeline {
             sh('git push origin develop:develop')
           }
         }
-      }
+      }*/
       stage("cleanup") {
         steps {
           cleanWs()
