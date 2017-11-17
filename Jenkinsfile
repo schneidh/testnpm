@@ -1,5 +1,19 @@
 pipeline {
-    agent { node { label 'master' } }
+    agent { 
+        node { label 'master' }
+     properties([
+      pipelineTriggers([
+       [$class: 'GenericTrigger',
+        genericVariables: [
+         [expressionType: 'JSONPath', key: 'repo', value: '$.repository.repository']
+         [expressionType: 'JSONPath', key: 'ref', value: '$.ref']
+         [expressionType: 'JSONPath', key: 'author_name', value: '$.head_commit.author.name']
+        ],
+        regexpFilterText: '$repo $ref $author_name',
+        regexpFilterExpression: '^testnpm refs/heads/master (?!Jenkins).*$'
+       ]
+      ])
+    }
     tools {nodejs "NODE6_11_3"}
     stages {
        stage("setup") {
