@@ -1,6 +1,6 @@
 pipeline {
     agent { 
-        node { label 'master' }
+        node { label 'master',
       properties([
         pipelineTriggers([
          [$class: 'GenericTrigger',
@@ -14,6 +14,7 @@ pipeline {
         ]
         ])
       ])
+    }
     }
     tools {nodejs "NODE6_11_3"}
     stages {
