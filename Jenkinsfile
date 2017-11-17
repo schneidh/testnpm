@@ -1,13 +1,5 @@
 pipeline {
     agent { node { label 'master' } }
-    triggers {
-      genericTrigger {
-       genericVariables {
-       }
-       regexpFilterText("")
-       regexpFilterExpression("")
-      }
-    }
     tools {nodejs "NODE6_11_3"}
     stages {
        stage("setup") {
