@@ -2,7 +2,7 @@ pipeline {
     agent { node { label 'master' } }
     tools {nodejs "NODE6_11_3"}
     stages {
-       stage("setup") {
+       stage("presetup") {
           steps {
             sh "node -v"
             sh "npm -v"
