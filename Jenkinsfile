@@ -20,15 +20,16 @@ pipeline {
        }
       stage("release") {
         steps {
-          sshagent (credentials: [deploy_key]) {
+          sshagent (credentials: ['testnpm-ssh']) {
             sh 'git config --global user.email "jenkins@doradosystems.com"'
             sh 'git config --global user.name "Jenkins Release"'
+            sh('git push origin --tags master:master')
             sh 'npm version patch -m "[npm-version] %s"'
             sh('git push origin --tags master:master')
           }
         }
       }
-      stage("merge to develop") {
+      /*stage("merge to develop") {
         steps {
           sshagent (credentials: [deploy_key]) {
             sh 'git config --global user.email "jenkins@doradosystems.com"'
@@ -38,7 +39,7 @@ pipeline {
             sh('git push origin develop:develop')
           }
         }
-      }
+      }*/
       stage("cleanup") {
         steps {
           cleanWs()
