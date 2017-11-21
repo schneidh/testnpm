@@ -20,7 +20,7 @@ pipeline {
        }
       stage("release") {
         steps {
-          sshagent (credentials: ['testnpm-ssh']) {
+          sshagent (credentials: [deploy_key]) {
             sh 'git config --global user.email "jenkins@doradosystems.com"'
             sh 'git config --global user.name "Jenkins Release"'
             sh('git push origin --tags master:master')
