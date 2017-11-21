@@ -1,6 +1,9 @@
 pipeline {
     agent { node { label 'master' } }
     tools {nodejs "NODE6_11_3"}
+    environment {
+      deploy_key = 'testnpm-ssh';
+    }
     stages {
        stage("setup") {
           steps {
@@ -15,9 +18,9 @@ pipeline {
            sh 'npm install'
          }
        }
-      /* stage("release") {
+      stage("release") {
         steps {
-          sshagent (credentials: ['testnpm-ssh']) {
+          sshagent (credentials: [deploy_key]) {
             sh 'git config --global user.email "jenkins@doradosystems.com"'
             sh 'git config --global user.name "Jenkins Release"'
             sh 'npm version patch -m "[npm-version] %s"'
@@ -27,7 +30,7 @@ pipeline {
       }
       stage("merge to develop") {
         steps {
-          sshagent (credentials: ['testnpm-ssh']) {
+          sshagent (credentials: [deploy_key]) {
             sh 'git config --global user.email "jenkins@doradosystems.com"'
             sh 'git config --global user.name "Jenkins Release"'
             sh('git checkout -B develop origin/develop')
@@ -35,7 +38,7 @@ pipeline {
             sh('git push origin develop:develop')
           }
         }
-      }*/
+      }
       stage("cleanup") {
         steps {
           cleanWs()
