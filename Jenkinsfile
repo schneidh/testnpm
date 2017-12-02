@@ -10,17 +10,17 @@ pipeline {
           steps {
             sh "node -v"
             sh "npm -v"
-             sh "echo ${value}"
+            sh "${value} && echo blue"
           }
        }
-       stage("build") {
+      /* stage("build") {
          steps {
            sh 'export PATH=$PATH:$NODEJS'
            sh 'rm -rf node_modules'
            sh 'npm install'
          }
-       }
-      stage("release") {
+       }*/
+      /*stage("release") {
         steps {
           sshagent (credentials: [deploy_key]) {
             sh 'git config --global user.email "jenkins@doradosystems.com"'
@@ -30,7 +30,7 @@ pipeline {
             sh('git push origin --tags master:master')
           }
         }
-      }
+      }*/
       /*stage("merge to develop") {
         steps {
           sshagent (credentials: [deploy_key]) {
