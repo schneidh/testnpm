@@ -3,12 +3,14 @@ pipeline {
     tools {nodejs "NODE6_11_3"}
     environment {
       deploy_key = 'testnpm-ssh';
+      value = true;
     }
     stages {
        stage("setup") {
           steps {
             sh "node -v"
             sh "npm -v"
+             sh "echo ${value}"
           }
        }
        stage("build") {
