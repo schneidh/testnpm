@@ -3,7 +3,7 @@ pipeline {
     tools {nodejs "NODE6_11_3"}
     environment {
       deploy_key = 'testnpm-ssh';
-      value = true;
+      value = false;
     }
     stages {
        stage("setup") {
